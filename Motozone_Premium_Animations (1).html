@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium GSAP Animations">
+    <title>Premium GSAP Animations</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #0d1117;
+            color: #f4f4f4;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(45deg, #ff6f61, #d4e157);
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .section {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .section:nth-child(even) {
+            background: #161b22;
+        }
+
+        .title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transform-origin: center;
+        }
+    </style>
+</head>
+<body>
+    <header>Premium Animations</header>
+
+    <section class="section">
+        <h2 class="title">Scroll-triggered Animations</h2>
+        <div class="content">
+            Scroll down to see boxes animate dynamically as they enter the viewport.
+        </div>
+        <div class="box" id="box1"></div>
+        <div class="box" id="box2"></div>
+        <div class="box" id="box3"></div>
+    </section>
+
+    <section class="section">
+        <h2 class="title">Interactive Hover Effects</h2>
+        <div class="content">
+            Hover over the boxes to see interactive effects.
+        </div>
+        <div class="box" id="hoverBox1"></div>
+        <div class="box" id="hoverBox2"></div>
+        <div class="box" id="hoverBox3"></div>
+    </section>
+
+    <script>
+        // Scroll-triggered animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from("#box1", {
+            scrollTrigger: {
+                trigger: "#box1",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            x: -200,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power4.out"
+        });
+
+        gsap.from("#box2", {
+            scrollTrigger: {
+                trigger: "#box2",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            y: 200,
+            opacity: 0,
+            duration: 1.5,
+            ease: "elastic.out(1, 0.75)"
+        });
+
+        gsap.from("#box3", {
+            scrollTrigger: {
+                trigger: "#box3",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            scale: 0,
+            opacity: 0,
+            duration: 1.5,
+            ease: "back.out(1.7)"
+        });
+
+        // Interactive hover effects
+        const hoverEffect = (element) => {
+            const tl = gsap.timeline({ paused: true });
+
+            tl.to(element, {
+                scale: 1.2,
+                rotate: 15,
+                duration: 0.3,
+                ease: "power1.inOut"
+            }).to(element, {
+                scale: 1,
+                rotate: 0,
+                duration: 0.3,
+                ease: "power1.inOut"
+            });
+
+            element.addEventListener("mouseenter", () => tl.play());
+            element.addEventListener("mouseleave", () => tl.reverse());
+        };
+
+        hoverEffect(document.querySelector("#hoverBox1"));
+        hoverEffect(document.querySelector("#hoverBox2"));
+        hoverEffect(document.querySelector("#hoverBox3"));
+    </script>
+</body>
+</html>
